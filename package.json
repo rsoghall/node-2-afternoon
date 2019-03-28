@@ -1,5 +1,5 @@
 {
-  "name": "node-2-afternoon",
+  "name": "2-afternoon",
   "version": "1.0.0",
   "description": "<img src=\"https://s3.amazonaws.com/devmountain/readme-logo.png\" width=\"250\" align=\"right\">",
   "main": "index.js",
@@ -21,6 +21,6 @@
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "massive": "^5.7.3"
+    "massive": "^5.7.7"
   }
 }

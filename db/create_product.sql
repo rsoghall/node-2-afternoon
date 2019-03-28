@@ -1,6 +1,6 @@
 insert into product (
-    name,
-    description,
+    item,
+    product_desc,
     price,
     image_url
 ) values (

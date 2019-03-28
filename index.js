@@ -1,23 +1,25 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const {json} = require('body-parser');
 require('dotenv').config();
 const massive = require('massive');
 const app = express();
-const pctrl = require('./products_controller')
+const controller = require('./products_controller')
+const {SERVER_PORT, CONNECTION_STRING} = process.env
 
-app.use(bodyParser.json())
+app.use(json())
 
-massive(process.env.CONNECTION_STRING)
-.then((db) => {app.set('db', db)
-// db.seed_data()
-}).catch(err => console.log (err))
+massive(CONNECTION_STRING)
+.then(dbInstance => {
+    app.set('db', dbInstance)
+    console.log(('DB Set!'))
+    console.log(dbInstance.listTables())
+}).catch(err =>console.log(err))
 
-app.post (`/api/products`, pctrl.create)
-app.get (`/api/products`, pctrl.getAll)
-app.get (`/api/products/:id`, pctrl.getOne)
-app.put (`/api/products/:id`, pctrl.update)
-app.delete (`/api/products/:id`, pctrl.delete)
+const url = '/api/products'
+app.get(url, controller.getAll)
+app.get(`${url}/:id`, controller.getOne)
+app.put(`${url}/:id`, controller.update)
+app.post(url, controller.create)
+app.delete(url, controller.delete)
 
-
-const PORT = process.env.PORT 
-app.listen(PORT, () => console.log(`Server is running on ${PORT}`))
+app.listen(SERVER_PORT, () => console.log(`Running on ${SERVER_PORT}`))
